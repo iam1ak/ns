@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA algorithm</title>
+</head>
+<body>
+    <center>
+        <h1> RSA algorithm</h1>
+        <h2>Implemented using HTML and JavaScript</h2>
+
+        <hr>
+        <table >
+            <tr>
+                <td>Enter the first prime number</td>
+                <td><input type="number" value="53" id="p" ></td>
+            </tr>
+
+            <tr>
+                <td>Enter the second prime number</td>
+                <td><input type="number" value="59" id="q"></td>
+            </tr>
+            <tr> 
+                <td>Enter the message:</td>
+                <td><input type="number" value="89" id="msg"></td>
+            </tr>
+            <tr>
+                <td>Public key :</td>
+                <td><p id="publickey"></p></td>
+            </tr>
+            <tr>
+                <td>Exponent :</td>
+                <td><p id="exponent"></p></td>
+            </tr>
+            <tr>
+                <td>Private key :</td>
+                <td><p id="privatekey"></p></td>
+            </tr>
+            <tr>
+                <td>Cipher Text:</td>
+                <td><p id="ciphertext"></p></td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="RSA();">Apply RSA</button>
+                </td>
+            </tr>
+        </table>
+    </center> 
+</body>
+
+<script type="text/JavaScript">
+
+    function RSA() {
+        var gcd,p,q,msg,n,t,pbE,prE,i,x;
+        gcd=function(a,b) {
+            return (!b) ? a : gcd(b,a % b);
+            
+        }
+        p=document.getElementById('p').value;
+        q=document.getElementById('q').value;
+        msg=document.getElementById('msg').value;
+
+        n=p*q;
+        t=(p-1)*(q-1);
+
+        for(pbE=2;pbE<t;pbE++){
+            if(gcd(pbE,t)==1){
+                break;
+            }
+        }
+
+        for(i=0;i<10;i++){
+            x=1+i*t;
+            if(x%pbE==0){
+                prE=x/pbE;
+                break;
+
+            }
+        }
+        ctt=Math.pow(msg,pbE).toFixed(0);
+        ct=ctt % n;
+
+        dtt=Math.pow(ct,pr).toFixed(0);
+        dt=dtt % n;
+
+        document.getElementById('publickey').innerHTML=n;
+        document.getElementById('exponent').innerHTML=pbE;
+        document.getElementById('privatekey').innerHTML=prE;
+        document.getElementById('ciphertext').innerHTML=ct;
+        
+    }
+</script>
+</html>
